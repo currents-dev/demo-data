@@ -12,5 +12,9 @@
   "devDependencies": {
     "@playwright/test": "^1.46.1",
     "@types/node": "^22.5.0"
+  },
+  "dependencies": {
+    "@wbgneto/currents-playwright": "^1.5.11-alpha.1",
+    "dotenv": "^16.4.5"
   }
 }
