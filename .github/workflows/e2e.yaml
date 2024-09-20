@@ -37,10 +37,6 @@ jobs:
         run: |
           npm ci
 
-      - name: Run fake-github-commit.js
-        run: |
-          node scripts/fake-git-data/fake-git-data.js
-
       - name: Run Tests
         continue-on-error: false
         env:
@@ -48,5 +44,6 @@ jobs:
           CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
         run: |
+          node scripts/fake-git-data/fake-git-data.js
           npx playwright install 
           npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt }}"
