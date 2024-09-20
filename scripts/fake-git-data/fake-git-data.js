@@ -31,7 +31,7 @@ async function createCommitAndCheckoutBranch() {
         },
         base: {
           ref: "main",
-          sha: await git.revparse(["main"]),
+          sha: await git.revparse(["HEAD"]).catch(() => ""),
         },
         issue_url: `https://api.github.com/repos/owner/repo/issues/${Math.floor(
           Math.random() * 1000
