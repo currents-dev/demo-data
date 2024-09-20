@@ -40,6 +40,7 @@ jobs:
       - name: Run Tests
         continue-on-error: false
         env:
+          COMMIT_INFO_MESSAGE: "Update git history"
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
