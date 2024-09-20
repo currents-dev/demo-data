@@ -20,6 +20,8 @@ async function updateGitHistory() {
     // Force git rev-parse to return our desired branch name
     const gitDir = await git.revparse(["--git-dir"]);
     const headFile = path.join(gitDir, "HEAD");
+    await git.checkout(["-B", commit.branch]);
+
     fs.writeFileSync(headFile, `ref: refs/heads/${commit.branch}\n`);
 
     // Modify the commit message
