@@ -10,7 +10,8 @@ async function createCommitAndCheckoutBranch() {
 
     await git.addConfig("user.email", randomAuthor.email, false, "local");
     await git.addConfig("user.name", randomAuthor.name, false, "local");
-    await git.checkoutLocalBranch(commit.branch);
+
+    await git.checkout(["-B", commit.branch]);
     await git.commit(commit.msg, { "--allow-empty": null });
   } catch (err) {
     console.error("Failed to execute git commands:", err);
