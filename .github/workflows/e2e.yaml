@@ -12,6 +12,8 @@ jobs:
   basicTests:
     strategy:
       fail-fast: false
+      matrix:
+        shard: [1, 2]
 
     name: "Playwright tests"
     timeout-minutes: 60
@@ -38,11 +40,10 @@ jobs:
       - name: Run Tests
         continue-on-error: false
         env:
-          GITHUB_ACTIONS: false
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
           npx playwright install 
-          DEBUG=currents* npx pwc --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
