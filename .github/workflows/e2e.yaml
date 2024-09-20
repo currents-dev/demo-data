@@ -47,4 +47,4 @@ jobs:
           git rev-parse --abbrev-ref HEAD
           git show -s --pretty=%B
           npx playwright install 
-          npx pwc--ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
+          npx pwc --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
