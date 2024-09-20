@@ -39,11 +39,12 @@ jobs:
 
       - name: Run fake-github-commit.js
         run: |
-          node scripts/fake-github-commit.js
+          node scripts/fake-git-data/fake-git-data.js
 
       - name: Run Tests
         continue-on-error: false
         env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
         run: |
