@@ -17,12 +17,19 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "chromium",
+      name: "web-app",
       use: { ...devices["Desktop Chrome"] },
+      testDir: "./tests/web-app",
     },
     {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      name: "docs",
+      use: { ...devices["Desktop Chrome"] },
+      testDir: "./tests/docs",
+    },
+    {
+      name: "landing-page",
+      use: { ...devices["Desktop Chrome"] },
+      testDir: "./tests/landing-page",
     },
   ],
 });

@@ -12,7 +12,7 @@ test.describe(
   () => {
     test("should display welcome message on first login", async ({ page }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
@@ -20,19 +20,19 @@ test.describe(
       page,
     }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
     test("should offer tutorial on main features", async ({ page }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
     test("should allow user to connect integrations", async ({ page }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
@@ -40,7 +40,7 @@ test.describe(
       page,
     }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(true).toBeTruthy();
     });
 
@@ -48,7 +48,7 @@ test.describe(
       page,
     }) => {
       await page.goto("/");
-      await page.waitForTimeout(random(100, 3000));
+      await page.waitForTimeout(random(10, 1000));
       await expect(true).toBeTruthy();
     });
   }

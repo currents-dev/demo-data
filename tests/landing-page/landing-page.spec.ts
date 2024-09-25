@@ -23,49 +23,11 @@ test.describe(
       await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
     });
 
-    test("should display hero section with clear value proposition", async ({
-      page,
-    }) => {
-      await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
-      await expect(true).toBeTruthy();
-    });
-
-    test("should show pricing plans with feature comparison", async ({
-      page,
-    }) => {
-      await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
-      await expect(true).toBeTruthy();
-    });
-
-    test("should have functional navigation menu with dropdown", async ({
-      page,
-    }) => {
-      await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
-      await expect(true).toBeTruthy();
-    });
-
-    test("should display customer testimonials carousel", async ({ page }) => {
-      await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
-      await expect(true).toBeTruthy();
-    });
-
-    test("should show 'Get Started' CTA button above the fold", async ({
-      page,
-    }) => {
-      await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
-      await expect(true).toBeTruthy();
-    });
-
     test("should have footer with links to important pages", async ({
       page,
     }) => {
       await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
+      await page.waitForTimeout(random(100, 500));
       await expect(true).toBeTruthy();
     });
 
@@ -73,7 +35,7 @@ test.describe(
       page,
     }) => {
       await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
+      await page.waitForTimeout(random(100, 500));
       await expect(true).toBeTruthy();
     });
 
@@ -81,7 +43,7 @@ test.describe(
       page,
     }) => {
       await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
+      await page.waitForTimeout(random(100, 500));
       await expect(true).toBeTruthy();
     });
 
@@ -89,7 +51,7 @@ test.describe(
       page,
     }) => {
       await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
+      await page.waitForTimeout(random(100, 500));
       await expect(true).toBeTruthy();
     });
 
@@ -97,8 +59,14 @@ test.describe(
       page,
     }) => {
       await page.goto("https://currents.dev/");
-      await page.waitForTimeout(random(100, 30000));
+      await page.waitForTimeout(random(100, 500));
       await expect(true).toBeTruthy();
+    });
+
+    test("should sometimes display a popup", async ({ page }) => {
+      await page.goto("https://currents.dev/");
+      await page.waitForTimeout(random(100, 500));
+      await expect(Math.random() > 0.05).toBeTruthy();
     });
   }
 );
