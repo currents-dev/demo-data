@@ -12,6 +12,58 @@
     "branch": "chore/update-deps"
   },
   {
+    "msg": "feat: add password reset functionality",
+    "branch": "feat/password-reset"
+  },
+  {
+    "msg": "refactor: optimize database queries",
+    "branch": "refactor/db-queries"
+  },
+  {
+    "msg": "test: add unit tests for user service",
+    "branch": "test/user-service"
+  },
+  {
+    "msg": "docs: update API documentation",
+    "branch": "docs/api-update"
+  },
+  {
+    "msg": "style: improve UI/UX of dashboard",
+    "branch": "style/dashboard-ui"
+  },
+  {
+    "msg": "perf: enhance caching mechanism",
+    "branch": "perf/caching"
+  },
+  {
+    "msg": "feat: implement multi-factor authentication",
+    "branch": "feat/mfa"
+  },
+  {
+    "msg": "fix: address CORS issues in API",
+    "branch": "fix/cors-api"
+  },
+  {
+    "msg": "chore: clean up deprecated code",
+    "branch": "chore/code-cleanup"
+  },
+  {
+    "msg": "feat: add social media integration",
+    "branch": "feat/social-media"
+  },
+  {
+    "msg": "feat: implement user registration",
+    "branch": "feat/user-registration"
+  },
+  {
+    "msg": "fix: resolve login authentication issue",
+    "branch": "fix/login-auth"
+  },
+  {
+    "msg": "chore: update dependencies",
+    "branch": "chore/update-deps"
+  },
+  {
     "msg": "docs: add API documentation",
     "branch": "docs/api-docs"
   },

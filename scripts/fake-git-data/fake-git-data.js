@@ -7,7 +7,7 @@ const git = simpleGit();
 
 async function createCommitAndCheckoutBranch() {
   try {
-    const commit = commits[new Date().getDay()];
+    const commit = commits[daysIntoYear(new Date())];
     const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
 
     // Git operations
@@ -64,6 +64,17 @@ async function createCommitAndCheckoutBranch() {
   } catch (err) {
     console.error("Failed to execute operations:", err);
   }
+}
+
+function daysIntoYear(date) {
+  return (
+    (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
+      Date.UTC(date.getFullYear(), 0, 0)) /
+    24 /
+    60 /
+    60 /
+    1000
+  );
 }
 
 createCommitAndCheckoutBranch();
