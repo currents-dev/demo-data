@@ -36,8 +36,9 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
+          npx playwright install
 
-      - name: Run Tests
+      - name: Run docs e2e tests
         continue-on-error: false
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
@@ -45,8 +46,34 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx playwright install 
-          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
-          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
           DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project docs
-          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" -- project landing-page
+
+      - name: Run landing-page e2e tests
+        continue-on-error: false
+        env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
+          CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
+          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
+        run: |
+          node scripts/fake-git-data/fake-git-data.js
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
+
+      - name: Run all e2e
+        continue-on-error: false
+        env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
+          CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
+          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
+        run: |
+          node scripts/fake-git-data/fake-git-data.js
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+
+      - name: Run web-app e2e tests
+        continue-on-error: false
+        env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
+          CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
+          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
+        run: |
+          node scripts/fake-git-data/fake-git-data.js
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
