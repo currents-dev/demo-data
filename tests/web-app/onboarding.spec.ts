@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { random } from "../../utils";
 
 test.describe(
-  "@onboarding",
+  "@web-app",
   {
     annotation: {
       type: "owner",
