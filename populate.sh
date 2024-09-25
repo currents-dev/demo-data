@@ -20,12 +20,12 @@ read project_id
 for ((i=days_back; i>=1; i--)); do
     echo "Running for -$i days"
 
-    node scripts/fake-git-data/fake-git-data.js
+    faketime "-$i days" node scripts/fake-git-data/fake-git-data.js
 
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project web-app  --update-snapshots
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project docs  --update-snapshots
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project landing-page  --update-snapshots
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --update-snapshots
+    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project web-app 
+    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project docs 
+    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project landing-page 
+    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id"
     # Reset snapshots
     git checkout -- .
 done
