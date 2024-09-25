@@ -11,9 +11,7 @@ test.describe(
   },
   () => {
     test("should have consistent visuals", async ({ page }) => {
-      await page.goto(
-        "https://web.archive.org/web/20240108092151id_/https://currents.dev/"
-      );
+      await page.goto("https://currents.dev/");
       await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
     });
   }
