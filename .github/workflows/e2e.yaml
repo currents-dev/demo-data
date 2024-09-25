@@ -6,7 +6,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 */8 * * *"
 
 jobs:
   basicTests:
@@ -47,3 +47,6 @@ jobs:
           node scripts/fake-git-data/fake-git-data.js
           npx playwright install 
           DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}"
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project docs
+          DEBUG=currents* npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" -- project landing-page
