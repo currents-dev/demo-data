@@ -22,10 +22,10 @@ for ((i=days_back; i>=1; i--)); do
 
     faketime "-$i days" node scripts/fake-git-data/fake-git-data.js
 
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project web-app 
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project docs 
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project landing-page 
-    CURRENTS_API_URL=https://cy-staging.currents.dev faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id"
+    faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project web-app 
+    faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project docs 
+    faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id" --project landing-page 
+    faketime "-$i days" npx pwc --key "$record_id" --project-id "$project_id"
     # Reset snapshots
     git checkout -- .
 done
