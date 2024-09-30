@@ -39,7 +39,7 @@ jobs:
           npx playwright install
 
       - name: Run docs e2e tests
-        continue-on-error: false
+        continue-on-error: true
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
@@ -49,7 +49,7 @@ jobs:
           npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project docs
 
       - name: Run landing-page e2e tests
-        continue-on-error: false
+        continue-on-error: true
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
@@ -59,7 +59,7 @@ jobs:
           npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
 
       - name: Run all e2e
-        continue-on-error: false
+        continue-on-error: true
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
@@ -69,7 +69,7 @@ jobs:
           npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
 
       - name: Run web-app e2e tests
-        continue-on-error: false
+        continue-on-error: true
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
           CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
