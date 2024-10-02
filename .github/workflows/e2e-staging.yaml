@@ -46,7 +46,7 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project docs
+          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
 
       - name: Run landing-page e2e tests
         continue-on-error: true
@@ -56,7 +56,7 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
+          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "landing-${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
 
       - name: Run all e2e
         continue-on-error: true
@@ -66,7 +66,7 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "all-${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
 
       - name: Run web-app e2e tests
         continue-on-error: true
@@ -76,4 +76,4 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "web-${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
