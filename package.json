@@ -2,19 +2,24 @@
   "name": "e2e",
   "version": "1.0.0",
   "main": "index.js",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "dev": "npm run dev --workspace=nextfolio"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.46.1",
-    "@types/node": "^22.5.0"
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.5.0",
+    "start-server-and-test": "^2.0.10"
   },
   "dependencies": {
-    "@wbgneto/currents-playwright": "^1.5.11-alpha.1",
+    "@currents/playwright": "^1.9.4",
     "dotenv": "^16.4.5",
     "simple-git": "^3.27.0"
   }
