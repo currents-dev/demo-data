@@ -46,4 +46,4 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          start-server-and-test dev http://localhost:3000 npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "coverage-${{ github.run_id }}-${{ github.run_attempt }}" --project coverage
+          start-server-and-test dev http://localhost:3000 "npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "coverage-${{ github.run_id }}-${{ github.run_attempt }}" --project nextfolio"
