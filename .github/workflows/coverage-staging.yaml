@@ -44,4 +44,4 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx start-server-and-test dev http://localhost:3000 "npx pwc --ci-build-id "coverage-${{ github.run_id }}-${{ github.run_attempt }}" --project nextjs"
+          npx start-server-and-test dev http://localhost:3000 "npx playwright test --ci-build-id "coverage-${{ github.run_id }}-${{ github.run_attempt }}" --project nextjs"
