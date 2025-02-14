@@ -1,7 +1,16 @@
+import { CurrentsConfig, currentsReporter } from "@currents/playwright";
 import { defineConfig, devices } from "@playwright/test";
 
 import dotenv from "dotenv";
 dotenv.config();
+
+const currentsConfig: CurrentsConfig = {
+  recordKey: process.env.CURRENTS_RECORD_KEY!,
+  projectId: process.env.CURRENTS_PROJECT_ID!,
+  coverage: {
+    projects: true,
+  },
+};
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -15,6 +24,7 @@ export default defineConfig({
     video: "on",
     screenshot: "on",
   },
+  reporter: [currentsReporter(currentsConfig)],
   projects: [
     {
       name: "web-app",
@@ -31,5 +41,11 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       testDir: "./tests/landing-page",
     },
+    {
+      name: "nextjs",
+      use: { ...devices["Desktop Chrome"] },
+      testDir: "./tests/nextjs",
+    },
   ],
+  outputDir: "test-results/",
 });

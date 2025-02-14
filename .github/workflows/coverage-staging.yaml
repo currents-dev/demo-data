@@ -1,0 +1,48 @@
+name: Staging - coverage
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 */12 * * *"
+
+jobs:
+  basicTests:
+    strategy:
+      fail-fast: false
+    name: "Playwright tests"
+    timeout-minutes: 60
+    runs-on: ubuntu-22.04
+    container: mcr.microsoft.com/playwright:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      # https://github.com/actions/runner-images/issues/6775
+      - run: |
+          echo "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install-deps
+          npx playwright install
+
+      - name: Run coverage e2e tests
+        continue-on-error: true
+        env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
+          CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
+          CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
+          CURRENTS_CI_BUILD_ID: "coverage-${{ github.run_id }}-${{ github.run_attempt }}"
+        run: |
+          node scripts/fake-git-data/fake-git-data.js
+          npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs"
