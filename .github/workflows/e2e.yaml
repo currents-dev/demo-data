@@ -17,6 +17,7 @@ jobs:
     container: mcr.microsoft.com/playwright:latest
     steps:
       - name: Random workflow stop (50% chance)
+        shell: bash
         run: |
           if [ $(( $RANDOM % 2 )) -eq 0 ]; then
             echo "Randomly stopping workflow (50% probability)"
@@ -52,6 +53,7 @@ jobs:
           npx pwc --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
 
       - name: Random workflow stop (10% chance)
+        shell: bash
         run: |
           if [ $(( $RANDOM % 10 )) -eq 0 ]; then
             echo "Randomly stopping workflow (10% probability)"
@@ -69,6 +71,7 @@ jobs:
           npx pwc --ci-build-id "landing-${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
 
       - name: Random workflow stop (10% chance)
+        shell: bash
         run: |
           if [ $(( $RANDOM % 10 )) -eq 0 ]; then
             echo "Randomly stopping workflow (10% probability)"
