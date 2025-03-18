@@ -12,8 +12,6 @@ jobs:
   basicTests:
     strategy:
       fail-fast: false
-      matrix:
-        shard: [1, 2]
 
     name: "Playwright tests"
     timeout-minutes: 60
@@ -24,7 +22,7 @@ jobs:
         run: |
           if [ $(( $RANDOM % 2 )) -eq 0 ]; then
             echo "Randomly stopping workflow (50% probability)"
-            exit 1
+            exit 0
           fi
           echo "Continuing workflow execution"
 
@@ -54,13 +52,13 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
+          npx pwc --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
 
       - name: Random workflow stop (10% chance)
         run: |
           if [ $(( $RANDOM % 10 )) -eq 0 ]; then
             echo "Randomly stopping workflow (10% probability)"
-            exit 1
+            exit 0
           fi
           echo "Continuing workflow execution"
 
@@ -72,13 +70,13 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "landing-${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
+          npx pwc --ci-build-id "landing-${{ github.run_id }}-${{ github.run_attempt }}" --project landing-page
 
       - name: Random workflow stop (10% chance)
         run: |
           if [ $(( $RANDOM % 10 )) -eq 0 ]; then
             echo "Randomly stopping workflow (10% probability)"
-            exit 1
+            exit 0
           fi
           echo "Continuing workflow execution"
 
@@ -90,4 +88,4 @@ jobs:
           CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx pwc --shard=${{ matrix.shard }}/${{ strategy.job-total }} --ci-build-id "web-${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+          npx pwc --ci-build-id "web-${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
