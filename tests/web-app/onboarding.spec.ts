@@ -24,11 +24,26 @@ test.describe(
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
-    test("should offer tutorial on main features", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 1000));
-      await expect(Math.random() > 0.05).toBeTruthy();
-    });
+    test(
+      "should offer tutorial on main features",
+      {
+        annotation: [
+          {
+            type: "note",
+            description: "The tutorial should be 5 minutes long",
+          },
+          {
+            type: "jira",
+            description: "https://jira.company.io/ticket/JIRA-123",
+          },
+        ],
+      },
+      async ({ page }) => {
+        await page.goto("/");
+        await page.waitForTimeout(random(10, 1000));
+        await expect(Math.random() > 0.05).toBeTruthy();
+      }
+    );
 
     test("should allow user to connect integrations", async ({ page }) => {
       await page.goto("/");
@@ -36,12 +51,18 @@ test.describe(
       await expect(Math.random() > 0.05).toBeTruthy();
     });
 
-    test("should present pricing options for subscription", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 1000));
-      await expect(true).toBeTruthy();
+    test("should test for consistent visuals", async ({ page }) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 300));
+      });
+
+      await test.step(`Assert UI has not changed`, async () => {
+        await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
+      });
     });
 
     test("should confirm email and complete signup process", async ({
