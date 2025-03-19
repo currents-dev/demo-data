@@ -11,7 +11,7 @@ test.describe(
   },
   () => {
     test(
-      "should generate a summary report with key metrics",
+      "[attachments] should generate a summary report with key metrics",
       {
         annotation: [
           {
@@ -42,19 +42,19 @@ test.describe(
             {
               name: "icon",
               payload: {
-                path: "./web-app/files/icon.png",
+                path: "./files/icon.png",
               },
             },
             {
               name: "performance-report",
               payload: {
-                path: "./web-app/files/performance-report.json",
+                path: "./files/performance-report.json",
               },
             },
             {
               name: "performance-report",
               payload: {
-                path: "./web-app/files/performance-report.md",
+                path: "./files/performance-report.md",
               },
             },
           ];
