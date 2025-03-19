@@ -1,5 +1,34 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, TestInfo } from "@playwright/test";
 import { random } from "../../utils";
+
+const attachFiles = async (testInfo: TestInfo) => {
+  await test.step(`Generate reports`, async () => {
+    const attachments = [
+      {
+        name: "icon",
+        payload: {
+          path: "./files/icon.png",
+        },
+      },
+      {
+        name: "performance-report",
+        payload: {
+          path: "./files/performance-report.json",
+        },
+      },
+      {
+        name: "performance-report",
+        payload: {
+          path: "./files/performance-report.md",
+        },
+      },
+    ];
+
+    for (const attachment of attachments) {
+      await testInfo.attach(attachment.name, attachment.payload);
+    }
+  });
+};
 
 test.describe(
   "@web-app @annotations @attachments",
@@ -11,7 +40,7 @@ test.describe(
   },
   () => {
     test(
-      "[attachments] should generate a summary report with key metrics",
+      "should generate a summary report with key metrics",
       {
         annotation: [
           {
@@ -37,32 +66,7 @@ test.describe(
           await page.waitForTimeout(random(10, 1000));
         });
 
-        await test.step(`Generate reports`, async () => {
-          const attachments = [
-            {
-              name: "icon",
-              payload: {
-                path: "./files/icon.png",
-              },
-            },
-            {
-              name: "performance-report",
-              payload: {
-                path: "./files/performance-report.json",
-              },
-            },
-            {
-              name: "performance-report",
-              payload: {
-                path: "./files/performance-report.md",
-              },
-            },
-          ];
-
-          for (const attachment of attachments) {
-            await testInfo.attach(attachment.name, attachment.payload);
-          }
-        });
+        await attachFiles(testInfo);
 
         await test.step(`Assert metrics generation`, async () => {
           await expect(Math.random() > 0.1).toBeTruthy();
@@ -80,7 +84,7 @@ test.describe(
           },
         ],
       },
-      async ({ page }) => {
+      async ({ page }, testInfo) => {
         await test.step(`Open website`, async () => {
           await page.goto("/");
         });
@@ -88,6 +92,8 @@ test.describe(
         await test.step(`Wait for animations`, async () => {
           await page.waitForTimeout(random(10, 700));
         });
+
+        await attachFiles(testInfo);
 
         await test.step(`Assert date range filtering`, async () => {
           await expect(Math.random() > 0.1).toBeTruthy();
@@ -97,7 +103,7 @@ test.describe(
 
     test("should export reports in various formats (PDF, CSV, Excel)", async ({
       page,
-    }) => {
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -106,12 +112,16 @@ test.describe(
         await page.waitForTimeout(random(10, 1000));
       });
 
+      await attachFiles(testInfo);
+
       await test.step(`Assert report exports`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
       });
     });
 
-    test("should display interactive charts and graphs", async ({ page }) => {
+    test("should display interactive charts and graphs", async ({
+      page,
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -120,12 +130,16 @@ test.describe(
         await page.waitForTimeout(random(10, 50));
       });
 
+      await attachFiles(testInfo);
+
       await test.step(`Assert charts display`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
       });
     });
 
-    test("should allow customization of report templates", async ({ page }) => {
+    test("should allow customization of report templates", async ({
+      page,
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -134,12 +148,16 @@ test.describe(
         await page.waitForTimeout(random(10, 600));
       });
 
+      await attachFiles(testInfo);
+
       await test.step(`Assert template customization`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
       });
     });
 
-    test("should schedule automated report generation", async ({ page }) => {
+    test("should schedule automated report generation", async ({
+      page,
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -148,6 +166,8 @@ test.describe(
         await page.waitForTimeout(random(10, 200));
       });
 
+      await attachFiles(testInfo);
+
       await test.step(`Assert automated scheduling`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
       });
@@ -155,7 +175,7 @@ test.describe(
 
     test("should provide access controls for sensitive report data", async ({
       page,
-    }) => {
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -164,6 +184,8 @@ test.describe(
         await page.waitForTimeout(random(10, 100));
       });
 
+      await attachFiles(testInfo);
+
       await test.step(`Assert access controls`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
       });
@@ -171,7 +193,7 @@ test.describe(
 
     test("should integrate with third-party analytics tools", async ({
       page,
-    }) => {
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -179,6 +201,8 @@ test.describe(
       await test.step(`Wait for animations`, async () => {
         await page.waitForTimeout(random(10, 400));
       });
+
+      await attachFiles(testInfo);
 
       await test.step(`Assert third-party integration`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
@@ -203,7 +227,7 @@ test.describe(
           },
         ],
       },
-      async ({ page }) => {
+      async ({ page }, testInfo) => {
         await test.step(`Open website`, async () => {
           await page.goto("/");
         });
@@ -211,6 +235,8 @@ test.describe(
         await test.step(`Wait for animations`, async () => {
           await page.waitForTimeout(random(10, 300));
         });
+
+        await attachFiles(testInfo);
 
         await test.step(`Assert real-time generation`, async () => {
           await expect(false).toBeTruthy();
@@ -220,7 +246,7 @@ test.describe(
 
     test("should allow collaboration and sharing of reports", async ({
       page,
-    }) => {
+    }, testInfo) => {
       await test.step(`Open website`, async () => {
         await page.goto("/");
       });
@@ -228,6 +254,8 @@ test.describe(
       await test.step(`Wait for animations`, async () => {
         await page.waitForTimeout(random(10, 200));
       });
+
+      await attachFiles(testInfo);
 
       await test.step(`Assert collaboration features`, async () => {
         await expect(Math.random() > 0.1).toBeTruthy();
