@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { random } from "../../utils";
 
 test.describe(
-  "@web-app @annotations",
+  "@web-app @annotations @attachments",
   {
     annotation: {
       type: "owner",
@@ -10,48 +10,59 @@ test.describe(
     },
   },
   () => {
-    test("should generate a summary report with key metrics @attachments", async ({
-      page,
-    }, testInfo) => {
-      await test.step(`Open website`, async () => {
-        await page.goto("/");
-      });
-
-      await test.step(`Wait for animations`, async () => {
-        await page.waitForTimeout(random(10, 1000));
-      });
-
-      await test.step(`Generate reports`, async () => {
-        const attachments = [
+    test(
+      "should generate a summary report with key metrics",
+      {
+        annotation: [
           {
-            name: "icon",
-            payload: {
-              path: "./files/icon.png",
-            },
+            type: "note",
+            description: "This test has attachments",
           },
           {
-            name: "performance-report",
-            payload: {
-              path: "./files/performance-report.json",
-            },
+            type: "note",
+            description: "This test has performance reports attached",
           },
           {
-            name: "performance-report",
-            payload: {
-              path: "./files/performance-report.md",
-            },
+            type: "note",
+            description: "Attachments should have JSON and MD files",
           },
-        ];
+        ],
+      },
+      async ({ page }, testInfo) => {
+        await test.step(`Open website`, async () => {
+          await page.goto("/");
+        });
 
-        for (const attachment of attachments) {
-          await testInfo.attach(attachment.name, attachment.payload);
-        }
-      });
+        await test.step(`Wait for animations`, async () => {
+          await page.waitForTimeout(random(10, 1000));
+        });
 
-      await test.step(`Assert metrics generation`, async () => {
-        await expect(Math.random() > 0.1).toBeTruthy();
-      });
-    });
+        await test.step(`Generate reports`, async () => {
+          const attachments = [
+            {
+              name: "performance-report",
+              payload: {
+                path: "./files/performance-report.json",
+              },
+            },
+            {
+              name: "performance-report",
+              payload: {
+                path: "./files/performance-report.md",
+              },
+            },
+          ];
+
+          for (const attachment of attachments) {
+            await testInfo.attach(attachment.name, attachment.payload);
+          }
+        });
+
+        await test.step(`Assert metrics generation`, async () => {
+          await expect(Math.random() > 0.1).toBeTruthy();
+        });
+      }
+    );
 
     test(
       "should allow filtering of reports by date range",
