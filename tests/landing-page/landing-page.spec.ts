@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe(
-  "@landing-page",
+  "@landing-page @visual-testing",
   {
     annotation: {
       type: "owner",
@@ -9,7 +9,7 @@ test.describe(
     },
   },
   () => {
-    test("should have consistent visuals @visual-testing", async ({ page }) => {
+    test("should have consistent visuals", async ({ page }) => {
       await page.goto("https://currents.dev/");
       await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
     });

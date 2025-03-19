@@ -40,15 +40,21 @@ test.describe(
         await test.step(`Generate reports`, async () => {
           const attachments = [
             {
-              name: "performance-report",
+              name: "icon",
               payload: {
-                path: "./files/performance-report.json",
+                path: "./web-app/files/icon.png",
               },
             },
             {
               name: "performance-report",
               payload: {
-                path: "./files/performance-report.md",
+                path: "./web-app/files/performance-report.json",
+              },
+            },
+            {
+              name: "performance-report",
+              payload: {
+                path: "./web-app/files/performance-report.md",
               },
             },
           ];
