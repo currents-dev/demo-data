@@ -10,6 +10,9 @@ async function createCommitAndCheckoutBranch() {
     const commit = commits[daysIntoYear(new Date())];
     const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
 
+    // 30% chance of branch name being "main"
+    commit.branch = Math.random() < 0.3 ? "main" : commit.branch;
+
     // Git operations
     await git.addConfig("user.email", randomAuthor.email, false, "local");
     await git.addConfig("user.name", randomAuthor.name, false, "local");

@@ -1,8 +1,37 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, TestInfo } from "@playwright/test";
 import { random } from "../../utils";
 
+const attachFiles = async (testInfo: TestInfo) => {
+  await test.step(`Generate reports`, async () => {
+    const attachments = [
+      {
+        name: "icon",
+        payload: {
+          path: "./files/icon.png",
+        },
+      },
+      {
+        name: "performance-report",
+        payload: {
+          path: "./files/performance-report.json",
+        },
+      },
+      {
+        name: "performance-report",
+        payload: {
+          path: "./files/performance-report.md",
+        },
+      },
+    ];
+
+    for (const attachment of attachments) {
+      await testInfo.attach(attachment.name, attachment.payload);
+    }
+  });
+};
+
 test.describe(
-  "@web-app",
+  "@web-app @annotations @attachments",
   {
     annotation: {
       type: "owner",
@@ -10,78 +39,227 @@ test.describe(
     },
   },
   () => {
-    test("should generate a summary report with key metrics", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 1000));
-      await expect(Math.random() > 0.1).toBeTruthy();
-    });
+    test(
+      "should generate a summary report with key metrics",
+      {
+        annotation: [
+          {
+            type: "note",
+            description: "This test has attachments",
+          },
+          {
+            type: "note",
+            description: "This test has performance reports attached",
+          },
+          {
+            type: "note",
+            description: "Attachments should have JSON and MD files",
+          },
+        ],
+      },
+      async ({ page }, testInfo) => {
+        await test.step(`Open website`, async () => {
+          await page.goto("/");
+        });
 
-    test("should allow filtering of reports by date range", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 700));
-      await expect(Math.random() > 0.1).toBeTruthy();
-    });
+        await test.step(`Wait for animations`, async () => {
+          await page.waitForTimeout(random(10, 1000));
+        });
+
+        await attachFiles(testInfo);
+
+        await test.step(`Assert metrics generation`, async () => {
+          await expect(Math.random() > 0.1).toBeTruthy();
+        });
+      }
+    );
+
+    test(
+      "should allow filtering of reports by date range",
+      {
+        annotation: [
+          {
+            type: "note",
+            description: "The date range should allow up to one year",
+          },
+        ],
+      },
+      async ({ page }, testInfo) => {
+        await test.step(`Open website`, async () => {
+          await page.goto("/");
+        });
+
+        await test.step(`Wait for animations`, async () => {
+          await page.waitForTimeout(random(10, 700));
+        });
+
+        await attachFiles(testInfo);
+
+        await test.step(`Assert date range filtering`, async () => {
+          await expect(Math.random() > 0.1).toBeTruthy();
+        });
+      }
+    );
 
     test("should export reports in various formats (PDF, CSV, Excel)", async ({
       page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 1000));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 1000));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert report exports`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
-    test("should display interactive charts and graphs", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 50));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    test("should display interactive charts and graphs", async ({
+      page,
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 50));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert charts display`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
-    test("should allow customization of report templates", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 600));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    test("should allow customization of report templates", async ({
+      page,
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 600));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert template customization`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
-    test("should schedule automated report generation", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 200));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    test("should schedule automated report generation", async ({
+      page,
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 200));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert automated scheduling`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
     test("should provide access controls for sensitive report data", async ({
       page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 100));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 100));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert access controls`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
     test("should integrate with third-party analytics tools", async ({
       page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 400));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 400));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert third-party integration`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
 
-    test("should generate real-time reports for live data", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 300));
-      await expect(false).toBeTruthy();
-    });
+    test(
+      "should generate real-time reports for live data",
+      {
+        annotation: [
+          {
+            type: "note",
+            description: "The reports should be generated in real-time",
+          },
+          {
+            type: "note",
+            description: "It can be delayed by up to 10 seconds",
+          },
+          {
+            type: "owner",
+            description: "@data-team",
+          },
+        ],
+      },
+      async ({ page }, testInfo) => {
+        await test.step(`Open website`, async () => {
+          await page.goto("/");
+        });
+
+        await test.step(`Wait for animations`, async () => {
+          await page.waitForTimeout(random(10, 300));
+        });
+
+        await attachFiles(testInfo);
+
+        await test.step(`Assert real-time generation`, async () => {
+          await expect(false).toBeTruthy();
+        });
+      }
+    );
 
     test("should allow collaboration and sharing of reports", async ({
       page,
-    }) => {
-      await page.goto("/");
-      await page.waitForTimeout(random(10, 200));
-      await expect(Math.random() > 0.1).toBeTruthy();
+    }, testInfo) => {
+      await test.step(`Open website`, async () => {
+        await page.goto("/");
+      });
+
+      await test.step(`Wait for animations`, async () => {
+        await page.waitForTimeout(random(10, 200));
+      });
+
+      await attachFiles(testInfo);
+
+      await test.step(`Assert collaboration features`, async () => {
+        await expect(Math.random() > 0.1).toBeTruthy();
+      });
     });
   }
 );
