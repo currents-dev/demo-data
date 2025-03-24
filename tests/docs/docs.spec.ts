@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { random } from "../../utils";
 
 test.describe(
-  "@docs @annotations",
+  "@docs @annotations @actions",
   {
     annotation: [
       {
@@ -114,7 +114,7 @@ test.describe(
       });
 
       await test.step(`Assert popup is visible`, async () => {
-        await expect(Math.random() > 0.05).toBeTruthy();
+        await expect(Math.random() > 0.8).toBeTruthy();
       });
     });
   }
