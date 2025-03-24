@@ -43,15 +43,6 @@ jobs:
           npm ci
           npx playwright install
 
-      - name: Run docs e2e tests
-        continue-on-error: true
-        env:
-          CURRENTS_PROJECT_ID: ${{ secrets.CURRENTS_PROJECT_ID }}
-          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
-        run: |
-          node scripts/fake-git-data/fake-git-data.js
-          npx pwc --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
-
       - name: Random workflow stop (10% chance)
         shell: bash
         run: |
@@ -87,3 +78,22 @@ jobs:
         run: |
           node scripts/fake-git-data/fake-git-data.js
           npx pwc --ci-build-id "web-${{ github.run_id }}-${{ github.run_attempt }}" --project web-app
+
+      - name: Stop workflow on even days
+        shell: bash
+        run: |
+          if [ $(( $(date +%-d) % 2 )) -eq 0 ]; then
+            echo "Stopping workflow - today is an even day"
+            exit 0
+          fi
+          echo "Continuing workflow execution"
+
+      - name: Run docs e2e tests
+        continue-on-error: true
+        env:
+          CURRENTS_API_URL: https://cy-staging.currents.dev
+          CURRENTS_PROJECT_ID: ${{ secrets.STAGING_CURRENTS_PROJECT_ID }}
+          CURRENTS_RECORD_KEY: ${{ secrets.STAGING_CURRENTS_RECORD_KEY }}
+        run: |
+          node scripts/fake-git-data/fake-git-data.js
+          npx pwc --ci-build-id "docs-${{ github.run_id }}-${{ github.run_attempt }}" --project docs
