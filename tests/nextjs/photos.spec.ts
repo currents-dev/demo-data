@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "../test.ts";
 
-test.describe("Photos Page", () => {
+test.describe("Photos Page @coverage", () => {
   test("should display the correct text", async ({ page }) => {
     // if (Math.random() < 0.5) {
     //   test.skip();
