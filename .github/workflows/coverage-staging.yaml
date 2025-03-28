@@ -46,3 +46,8 @@ jobs:
         run: |
           node scripts/fake-git-data/fake-git-data.js
           npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs"
+
+      - name: Print coverage output contents
+        run: |
+          ls -la .nyc_output
+          find .nyc_output -type f -exec sh -c 'echo "=== Contents of $1 ==="; cat "$1"' sh {} \;
