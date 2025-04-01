@@ -37,6 +37,7 @@ jobs:
           npx playwright install
 
       - name: Run coverage e2e tests
+        shell: bash
         continue-on-error: true
         env:
           CURRENTS_API_URL: https://cy-staging.currents.dev
