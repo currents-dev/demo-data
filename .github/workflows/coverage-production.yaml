@@ -42,7 +42,11 @@ jobs:
           CURRENTS_CI_BUILD_ID: "coverage-${{ github.run_id }}-${{ github.run_attempt }}"
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs"
+          if [ $(( $RANDOM % 2 )) -eq 0 ]; then
+            npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs-pages"
+          else
+            npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs-all"
+          fi
 
       - name: Print coverage output contents
         run: |

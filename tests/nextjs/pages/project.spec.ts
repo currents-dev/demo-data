@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { test } from "../test.ts";
+import { test } from "../../test.ts";
 
 test.describe("Projects Page @coverage", () => {
   test("should display the correct text", async ({ page }) => {
