@@ -3,7 +3,6 @@ import { test } from "../../test.ts";
 
 test.describe("Footer Component @coverage", () => {
   test("should display the current year", async ({ page }) => {
-    test.skip();
     await page.goto("http://localhost:3000");
 
     // Check if year is displayed
@@ -12,7 +11,6 @@ test.describe("Footer Component @coverage", () => {
   });
 
   test("should validate social links", async ({ page }) => {
-    test.skip();
     await page.goto("http://localhost:3000");
 
     // Check if social links are valid
