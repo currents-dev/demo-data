@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { projects } from "./project-data";
+import { Toggle } from "../components/Toggle";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function Projects() {
   return (
-    <section>
+    <section id="projects">
       <h1 className="mb-8 text-2xl font-medium tracking-tight">Projects</h1>
+      <div className="mb-8">
+        <Toggle />
+      </div>
       <div>
         {projects.map((project, index) => (
           <Link

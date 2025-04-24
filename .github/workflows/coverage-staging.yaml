@@ -36,6 +36,9 @@ jobs:
           npx playwright install-deps
           npx playwright install
 
+      - name: Create coverage variance
+        run: ./scripts/create-coverage-variance.sh
+
       - name: Run coverage e2e tests
         shell: bash
         continue-on-error: true
@@ -46,11 +49,7 @@ jobs:
           CURRENTS_CI_BUILD_ID: "coverage-${{ github.run_id }}-${{ github.run_attempt }}"
         run: |
           node scripts/fake-git-data/fake-git-data.js
-          if [ $(( $RANDOM % 2 )) -eq 0 ]; then
-            npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs-pages"
-          else
-            npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs-all"
-          fi
+          npx start-server-and-test dev http://localhost:3000 "npx playwright test --project nextjs"
 
       - name: Print coverage output contents
         run: |

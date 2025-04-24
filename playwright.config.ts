@@ -41,14 +41,8 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       testDir: "./tests/landing-page",
     },
-    // Creates coverage % variance
     {
-      name: "nextjs-pages",
-      use: { ...devices["Desktop Chrome"] },
-      testDir: "./tests/nextjs/pages",
-    },
-    {
-      name: "nextjs-all",
+      name: "nextjs",
       use: { ...devices["Desktop Chrome"] },
       testDir: "./tests/nextjs",
     },
