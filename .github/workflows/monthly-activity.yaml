@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,7 +21,29 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create and push empty commit
+      - name: Create branch with empty commit and open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git commit --allow-empty -m "chore: fake activity to GitHub workflows enabled"
-          git push
+          BRANCH_NAME="automated/monthly-activity-$(date +%Y%m)"
+          
+          # Create and switch to new branch
+          git checkout -b "$BRANCH_NAME"
+          
+          # Create empty commit
+          git commit --allow-empty -m "chore: fake activity to keep GitHub workflows enabled"
+          
+          # Push the branch
+          git push -u origin "$BRANCH_NAME"
+          
+          # Create PR
+          PR_URL=$(gh pr create \
+            --title "chore: monthly activity commit ($(date +%B\ %Y))" \
+            --body "Automated monthly activity commit to keep GitHub Actions enabled. This PR was created automatically by the monthly-activity workflow." \
+            --base main \
+            --head "$BRANCH_NAME")
+          
+          echo "Created PR: $PR_URL"
+          
+          # Enable auto-merge (will only work if auto-merge is enabled in repo settings)
+          gh pr merge --auto --squash "$PR_URL" || echo "Auto-merge not available - PR will need manual merge"
