@@ -9,11 +9,12 @@ on:
 jobs:
   fake-activity:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Use PAT to authenticate - the PAT owner must be in the branch protection bypass list
+          token: ${{ secrets.ACTIVITY_PAT }}
 
       - name: Configure git
         run: |
@@ -22,5 +23,5 @@ jobs:
 
       - name: Create and push empty commit
         run: |
-          git commit --allow-empty -m "chore: fake activity to GitHub workflows enabled"
+          git commit --allow-empty -m "chore: fake activity to keep GitHub workflows enabled"
           git push
